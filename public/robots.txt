@@ -1,0 +1,6 @@
+# Robots.txt para Parabol Argentina (Consortio Net SAS)
+User-agent: *
+Allow: /
+
+# Sitemap oficial
+Sitemap: https://parabol.com.ar/sitemap.xml

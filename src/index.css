@@ -1,0 +1,668 @@
+@import "tailwindcss";
+
+/* Touch feedback optimizations for mobile devices */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  /* On touch devices, ensure active touch states trigger instantly without delay */
+  a, button, [role="button"] {
+    touch-action: manipulation;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Animación sutil de pulso y barrido al llegar a la sección seleccionada */
+.section-sweep-active {
+  animation: sectionSweepGlow 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  border-radius: 1rem;
+}
+
+@keyframes sectionSweepGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+    outline: 2px solid rgba(6, 182, 212, 0);
+  }
+  30% {
+    box-shadow: 0 0 25px 2px rgba(6, 182, 212, 0.25), inset 0 0 15px rgba(6, 182, 212, 0.1);
+    outline: 2px solid rgba(6, 182, 212, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+    outline: 2px solid rgba(6, 182, 212, 0);
+  }
+}
+
+/* Animación de carga Shimmer para Skeleton Screens */
+@keyframes shimmerWave {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.05) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmerWave 1.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+html.light .animate-shimmer::after {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 0, 0, 0.02) 20%,
+    rgba(0, 0, 0, 0.06) 50%,
+    rgba(0, 0, 0, 0.02) 80%,
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+}
+
+/* Soporte de temas para skeleton items */
+.skeleton-box {
+  background-color: rgba(30, 41, 59, 0.7);
+}
+
+html.light .skeleton-box {
+  background-color: #e2e8f0 !important;
+}
+
+.skeleton-box-subtle {
+  background-color: rgba(30, 41, 59, 0.45);
+}
+
+html.light .skeleton-box-subtle {
+  background-color: #f1f5f9 !important;
+}
+
+.skeleton-card {
+  background-color: rgba(15, 23, 42, 0.85);
+  border-color: rgba(30, 41, 59, 0.8);
+}
+
+html.light .skeleton-card {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Barra de progreso animada de scroll superior (Gradiente de naranjas y rojos cálidos) */
+#scroll-progress-bar {
+  background: linear-gradient(90deg, #f59e0b 0%, #f97316 40%, #ef4444 80%, #dc2626 100%);
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.85), 0 0 5px rgba(239, 68, 68, 0.6);
+}
+
+html.light #scroll-progress-bar {
+  background: linear-gradient(90deg, #d97706 0%, #ea580c 45%, #dc2626 100%) !important;
+  box-shadow: 0 1px 6px rgba(234, 88, 12, 0.6) !important;
+}
+
+/* ==========================================================================
+   MODO CLARO DE ALTO CONTRASTE
+   Garantiza ratio de contraste WCAG AAA, tipografía nítida, tarjetas y bordes definidos
+   ========================================================================== */
+
+html.light,
+html.light body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+html.light #parabol-site {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Barra superior de estado y anuncios */
+html.light #status-bar {
+  background-color: #f1f5f9 !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+  color: #334155 !important;
+}
+html.light #status-bar-hashtag {
+  color: #0284c7 !important;
+}
+html.light #status-bar span.text-slate-300,
+html.light #status-bar span.text-slate-200 {
+  color: #0f172a !important;
+}
+html.light #status-bar span.text-slate-400,
+html.light #status-bar span.text-slate-500 {
+  color: #475569 !important;
+}
+
+/* Barra de navegación principal fija */
+html.light #main-header {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+}
+html.light #desktop-nav a {
+  color: #1e293b !important;
+  font-weight: 600;
+}
+html.light #desktop-nav a:hover {
+  color: #0284c7 !important;
+}
+
+/* Logo en modo claro: logotipo negativo invertido sin caja de fondo ni bordes */
+html.light #brand-logo-link,
+html.light #footer-logo-wrap {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+html.light #brand-logo-link img,
+html.light #footer-logo-wrap img {
+  filter: invert(1) contrast(1.15) !important;
+}
+
+/* Botones de WhatsApp unificados entre Hero y Navbar en modo claro */
+html.light #hero-whatsapp-btn {
+  background-color: rgba(236, 253, 245, 0.7) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  color: #065f46 !important;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15) !important;
+}
+html.light #hero-whatsapp-btn:hover {
+  background-color: rgba(209, 250, 229, 0.85) !important;
+  border-color: #059669 !important;
+  color: #064e3b !important;
+}
+html.light #header-whatsapp-cta {
+  background-color: #ecfdf5 !important;
+  border-color: #10b981 !important;
+  color: #065f46 !important;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.15) !important;
+}
+html.light #header-whatsapp-cta:hover {
+  background-color: #d1fae5 !important;
+  border-color: #059669 !important;
+  color: #064e3b !important;
+}
+html.light #hero-whatsapp-btn svg,
+html.light #header-whatsapp-cta svg {
+  color: #059669 !important;
+}
+
+/* Menú móvil desplegable */
+html.light #mobile-nav-drawer {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+}
+html.light #mobile-nav-backdrop {
+  background-color: rgba(15, 23, 42, 0.35) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+html.light #mobile-nav-drawer a {
+  color: #0f172a !important;
+}
+html.light #mobile-nav-drawer a:hover {
+  background-color: #f1f5f9 !important;
+}
+html.light #mobile-menu-toggle {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Encabezados y textos en las diferentes secciones */
+html.light h1,
+html.light h2,
+html.light h3 {
+  color: #0f172a !important;
+}
+
+html.light p.text-slate-400,
+html.light p.text-slate-300,
+html.light div.text-slate-400,
+html.light div.text-slate-300 {
+  color: #334155 !important;
+}
+
+/* Transición inferior del Hero que encaja de forma invisible con la sección Servicios */
+#hero-bottom-blend {
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 6, 23, 0) 0%,
+    rgba(2, 6, 23, 0.35) 40%,
+    rgba(2, 6, 23, 0.85) 75%,
+    #020617 100%
+  );
+}
+
+/* Sección Hero */
+html.light #inicio {
+  background-color: #f8fafc !important;
+}
+html.light #hero-video-base-tint {
+  background-color: rgba(248, 250, 252, 0.25) !important;
+}
+html.light #hero-video-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 250, 252, 0.4) 0%,
+    rgba(248, 250, 252, 0.15) 40%,
+    rgba(248, 250, 252, 0.6) 80%,
+    #f8fafc 100%
+  ) !important;
+}
+html.light #hero-bottom-blend {
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 250, 252, 0) 0%,
+    rgba(248, 250, 252, 0.4) 40%,
+    rgba(248, 250, 252, 0.85) 75%,
+    #f8fafc 100%
+  ) !important;
+}
+html.light #inicio h1 {
+  color: #0f172a !important;
+}
+html.light #inicio h1 span.bg-gradient-to-r {
+  background: linear-gradient(to right, #0284c7, #2563eb, #4f46e5) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+html.light #inicio p {
+  color: #334155 !important;
+}
+
+/* Cuadrícula de métricas y pilares clave */
+html.light #hero-pillars > div {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.08) !important;
+}
+html.light #hero-pillars > div:hover {
+  border-color: #0284c7 !important;
+}
+html.light #hero-pillars .text-slate-400 {
+  color: #334155 !important;
+}
+html.light #hero-pillars .text-cyan-400 {
+  color: #0284c7 !important;
+}
+html.light #hero-pillars .text-emerald-400 {
+  color: #059669 !important;
+}
+html.light #hero-pillars .text-sky-400 {
+  color: #0284c7 !important;
+}
+html.light #hero-pillars .text-indigo-400 {
+  color: #4f46e5 !important;
+}
+
+/* Tarjetas de Soluciones / Servicios */
+html.light #soluciones .bg-slate-900\/90,
+html.light #servicios .bg-slate-900\/90 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08) !important;
+}
+html.light #soluciones .bg-slate-900\/90:hover,
+html.light #servicios .bg-slate-900\/90:hover {
+  border-color: #0284c7 !important;
+}
+html.light #soluciones h3,
+html.light #servicios h3 {
+  color: #0f172a !important;
+}
+html.light #soluciones .text-slate-400,
+html.light #servicios .text-slate-400 {
+  color: #334155 !important;
+}
+html.light #soluciones .text-slate-300,
+html.light #servicios .text-slate-300 {
+  color: #1e293b !important;
+}
+html.light #soluciones strong.text-white,
+html.light #servicios strong.text-white {
+  color: #0f172a !important;
+}
+html.light #soluciones div.border-slate-800\/80,
+html.light #servicios div.border-slate-800\/80 {
+  border-color: #e2e8f0 !important;
+}
+html.light #soluciones a.text-cyan-400,
+html.light #servicios a.text-cyan-400 {
+  color: #0284c7 !important;
+  font-weight: 700 !important;
+}
+html.light #soluciones a.text-cyan-400:hover,
+html.light #servicios a.text-cyan-400:hover {
+  color: #0369a1 !important;
+}
+html.light #soluciones a.text-sky-400,
+html.light #servicios a.text-sky-400 {
+  color: #2563eb !important;
+  font-weight: 700 !important;
+}
+html.light #soluciones a.text-sky-400:hover,
+html.light #servicios a.text-sky-400:hover {
+  color: #1d4ed8 !important;
+}
+html.light #soluciones a.text-indigo-400,
+html.light #servicios a.text-indigo-400 {
+  color: #4f46e5 !important;
+  font-weight: 700 !important;
+}
+html.light #soluciones a.text-indigo-400:hover,
+html.light #servicios a.text-indigo-400:hover {
+  color: #4338ca !important;
+}
+html.light #soluciones a.text-amber-400,
+html.light #servicios a.text-amber-400 {
+  color: #d97706 !important;
+  font-weight: 700 !important;
+}
+html.light #soluciones a.text-amber-400:hover,
+html.light #servicios a.text-amber-400:hover {
+  color: #b45309 !important;
+}
+html.light #soluciones .text-amber-400,
+html.light #servicios .text-amber-400 {
+  color: #d97706 !important;
+}
+html.light #soluciones .border-amber-500\/20,
+html.light #servicios .border-amber-500\/20 {
+  border-color: rgba(217, 119, 6, 0.3) !important;
+}
+html.light #soluciones .bg-amber-500\/10,
+html.light #servicios .bg-amber-500\/10 {
+  background-color: rgba(245, 158, 11, 0.12) !important;
+}
+
+/* Sección Nosotros */
+html.light #nosotros .bg-slate-900\/90 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08) !important;
+}
+html.light #nosotros h3 {
+  color: #0f172a !important;
+}
+html.light #nosotros .text-slate-300 {
+  color: #1e293b !important;
+}
+html.light #nosotros blockquote {
+  color: #0f172a !important;
+}
+html.light #nosotros .bg-gradient-to-r {
+  background: linear-gradient(to right, #f0f9ff, #ffffff) !important;
+  border-left-color: #0284c7 !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06) !important;
+}
+html.light #nosotros .bg-slate-900\/80 {
+  background-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+html.light #nosotros .text-cyan-400 {
+  color: #0284c7 !important;
+  font-weight: 700 !important;
+}
+
+/* Píldoras e insignias de etiquetas */
+html.light .bg-cyan-500\/10 {
+  background-color: #e0f2fe !important;
+  border-color: #bae6fd !important;
+  color: #0369a1 !important;
+}
+html.light .bg-indigo-500\/10 {
+  background-color: #e0e7ff !important;
+  border-color: #c7d2fe !important;
+  color: #4338ca !important;
+}
+html.light .bg-emerald-500\/10 {
+  background-color: #d1fae5 !important;
+  border-color: #a7f3d0 !important;
+  color: #065f46 !important;
+}
+html.light .bg-blue-500\/10 {
+  background-color: #dbeafe !important;
+  border-color: #bfdbfe !important;
+  color: #1d4ed8 !important;
+}
+
+/* Sección Contacto */
+html.light #contacto .bg-slate-900 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 24px -2px rgba(15, 23, 42, 0.08) !important;
+}
+html.light #contacto #contact-whatsapp-card {
+  background-color: #ecfdf5 !important;
+  border-color: #a7f3d0 !important;
+}
+html.light #contacto #contact-whatsapp-card h4 {
+  color: #065f46 !important;
+}
+html.light #contacto #contact-whatsapp-card p {
+  color: #047857 !important;
+}
+
+/* Canales Electrónicos (Enlaces y textos accesibles de alto contraste) */
+html.light #contact-electronic-channels {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08) !important;
+}
+html.light #contact-electronic-channels h4 {
+  color: #475569 !important;
+  font-weight: 700 !important;
+}
+html.light #contact-electronic-channels .text-slate-400 {
+  color: #475569 !important;
+  font-weight: 500 !important;
+}
+html.light #contact-email-link {
+  color: #0284c7 !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+html.light #contact-email-link:hover {
+  color: #0369a1 !important;
+}
+html.light #contact-skype-handle {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+/* Oficinas (Direcciones accesibles de alto contraste) */
+html.light #contact-branches {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08) !important;
+}
+html.light #contact-branches h4 {
+  color: #475569 !important;
+  font-weight: 700 !important;
+}
+html.light .branch-office-card {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+html.light .branch-office-card .branch-title {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+html.light .branch-office-card .branch-address {
+  color: #1e293b !important;
+  font-weight: 500 !important;
+}
+
+/* Campos del Formulario de Contacto */
+html.light #contacto input,
+html.light #contacto select,
+html.light #contacto textarea {
+  background-color: #f8fafc !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+html.light #contacto input::placeholder,
+html.light #contacto textarea::placeholder {
+  color: #64748b !important;
+}
+html.light #contacto input:focus,
+html.light #contacto select:focus,
+html.light #contacto textarea:focus {
+  border-color: #0284c7 !important;
+  background-color: #ffffff !important;
+  outline: 2px solid rgba(2, 132, 199, 0.3) !important;
+}
+html.light #contacto label {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+}
+html.light #contacto select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+html.light #contacto span.text-slate-400 {
+  color: #475569 !important;
+}
+
+/* Pie de página */
+html.light #main-footer {
+  border-top-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+html.light #main-footer a {
+  color: #334155 !important;
+}
+html.light #main-footer a:hover {
+  color: #0284c7 !important;
+}
+html.light #main-footer div.border-t {
+  border-color: #e2e8f0 !important;
+}
+
+/* Botón flotante de WhatsApp */
+html.light #floating-whatsapp-btn {
+  background-color: #059669 !important;
+  box-shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.4) !important;
+}
+html.light #floating-whatsapp-btn:hover {
+  background-color: #047857 !important;
+}
+
+/* Modal de Términos y Condiciones en Modo Claro */
+html.light #open-terms-button {
+  color: #0284c7 !important;
+}
+html.light #open-terms-button:hover {
+  color: #0369a1 !important;
+}
+html.light #terms-modal-container .bg-slate-900 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25) !important;
+}
+html.light #terms-modal-container .bg-slate-950\/60 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+html.light #terms-modal-container h3,
+html.light #terms-modal-container h4 {
+  color: #0f172a !important;
+}
+html.light #terms-modal-container .text-slate-300 {
+  color: #1e293b !important;
+}
+html.light #terms-modal-container .text-slate-400 {
+  color: #475569 !important;
+}
+html.light #terms-modal-container .border-slate-800 {
+  border-color: #e2e8f0 !important;
+}
+html.light #terms-modal-container .bg-slate-800 {
+  background-color: #e2e8f0 !important;
+  color: #0284c7 !important;
+}
+html.light #terms-modal-container strong {
+  color: #0f172a !important;
+}
+
+/* Botón flotante para volver arriba en modo claro */
+html.light #scroll-to-top-btn {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  color: #0284c7 !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15), 0 8px 10px -6px rgba(15, 23, 42, 0.1) !important;
+}
+html.light #scroll-to-top-btn:hover {
+  background-color: #f1f5f9 !important;
+  color: #0369a1 !important;
+  border-color: #0284c7 !important;
+}
+
+/* Estilos para impresión y guardado como PDF limpio */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  #scroll-progress-container,
+  #scroll-to-top-btn,
+  #main-header,
+  #main-footer,
+  #floating-whatsapp-container,
+  #floating-whatsapp-btn,
+  main,
+  .print\:hidden {
+    display: none !important;
+  }
+  #terms-modal-container {
+    position: static !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+  #terms-modal-container .bg-slate-950\/80 {
+    display: none !important;
+  }
+  #terms-modal-container .bg-slate-900 {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-height: none !important;
+    color: #000000 !important;
+  }
+  #terms-modal-container * {
+    color: #111827 !important;
+    text-shadow: none !important;
+  }
+}
+
+

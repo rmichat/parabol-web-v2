@@ -1,0 +1,6 @@
+{
+  "name": "Parabol Argentina",
+  "description": "Sitio web oficial de Parabol Argentina: Soluciones de conectividad, Internet y fibra óptica simétrica para empresas, PyMEs y organizaciones en todo el país.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
